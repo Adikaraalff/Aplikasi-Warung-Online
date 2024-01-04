@@ -1,0 +1,120 @@
+@extends('layout')
+
+@section('content')
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+        <div class="container-fluid py-1 px-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a>
+                    </li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Kategori</li>
+                </ol>
+                <h6 class="font-weight-bolder mb-0">Kategori</h6>
+            </nav>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4 shadow-lg">
+                    <div class="container mx-auto">
+                        <div class="row">
+                            <div class="col-lg-12 margin-tb">
+                                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3"
+                                    bis_skin_checked="1">
+                                    <h6 class="text-white text-capitalize ps-3">Kategori table</h6>
+                                </div>
+                                <div class="card-header pb-0">
+                                    <h4>Kategori</h4>
+                                </div>
+                                <div class="pull-right mr-2">
+                                    <a class="btn btn-success" href="{{ route('kategoris.create') }}"> Tambah Kategori</a>
+                                </div>
+                            </div>
+                        </div>
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <div class="table-responsive p-0">
+                                <table class="table table-bordered align-items-center mb-0" id="lokasiTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nama</th>
+                                            <th>Keterangan</th>
+                                            <th class="text-center">Aksi</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#lokasiTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('kategoris.index') }}",
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'keterangan',
+                        name: 'keterangan'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                    // You can add more columns if needed
+                ]
+            });
+        });
+    </script>
+
+    <!--   Core JS Files   -->
+    <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages, etc -->
+    <script src="{{ asset('assets/js/material-dashboard.min.js?v=3.1.0') }}"></script>
+@endsection
