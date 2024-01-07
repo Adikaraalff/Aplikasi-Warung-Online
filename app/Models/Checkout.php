@@ -12,7 +12,7 @@ class Checkout extends Model
     protected $fillable = [
         'user_id',
         'shipping_address',
-        // tambahkan kolom lain sesuai kebutuhan
+        'total_amount'
     ];
 
     // Definisikan relasi dengan model User jika diperlukan

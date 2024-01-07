@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -62,7 +63,7 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
+            'name' => 'required',
             'email' => 'required|email|unique:clients',
             'password' => 'required',
             'tanggal_lahir' => 'required',
@@ -77,11 +78,6 @@ class ClientController extends Controller
             ->with('success', 'Client created successfully.');
     }
 
-    public function show(Client $client)
-    {
-        return view('clients.show', compact('client'));
-    }
-
     public function edit(Client $client)
     {
         return view('profile.client.edit', compact('client'));
@@ -89,17 +85,18 @@ class ClientController extends Controller
 
     public function update(Request $request, Client $client)
     {
+        // dd($request->all());
         $request->validate([
-            'nama' => 'required',
+            'name' => 'required',
             'email' => 'required|email|unique:clients,email,' . $client->id,
             'password' => 'required',
             'tanggal_lahir' => 'required',
             'no_hp' => 'required',
             'alamat' => 'required',
         ]);
-
         $client->update($request->all());
-        return redirect()->route('clients.index')
+        // User::where('id','=',Auth::user()->id)->update($request->except(['_token']));
+        return view('profile.client.profile')
             ->with('success', 'Client updated successfully');
     }
 
@@ -118,7 +115,7 @@ class ClientController extends Controller
 
     public function clientProfile()
     {
-        $client = Auth::user();
+        $client = Client::where('user_id','=',Auth::user()->id)->first();
         return view('profile.client.profile', compact('client'));
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('shipping_address');
+            $table->string('total_amount');
             // tambahkan kolom lain sesuai kebutuhan
             $table->timestamps();
         });

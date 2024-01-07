@@ -20,8 +20,8 @@
                                 @method('PUT')
 
                                 <div class="form-group">
-                                    <label for="nama">Nama:</label>
-                                    <input type="text" class="form-control" id="nama" name="nama"
+                                    <label for="name">Nama:</label>
+                                    <input type="text" class="form-control" id="name" name="name"
                                         value="{{ $client->nama }}" required>
                                 </div>
 

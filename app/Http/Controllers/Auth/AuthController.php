@@ -61,9 +61,10 @@ class AuthController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'tanggal_lahir' => '1999-80-23',
-                'no_hp' => '09283012',
-                'alamat' => 'Palemabang'
+                'tanggal_lahir' => '',
+                'no_hp' => '',
+                'alamat' => '',
+                'user_id' => $user->id
             ]);
 
             $user->assignRole('Client');

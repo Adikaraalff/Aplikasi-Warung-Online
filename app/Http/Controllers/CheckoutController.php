@@ -6,6 +6,7 @@ use App\Models\Checkout;
 use App\Models\Cart; // Make sure to import the Cart model
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
@@ -23,6 +24,7 @@ class CheckoutController extends Controller
             // Assuming each cart item has a 'quantity' column indicating the quantity of the product in the cart
             $totalAmount += $cartItem->Product->price * $cartItem->amount;
         }
+        $dataCart = Cart::where('id_users','=',Auth::user()->id)->sum('amount');
 
         return view('pages.checkout.index', compact('totalAmount'));
     }
@@ -31,22 +33,28 @@ class CheckoutController extends Controller
     {
         try {
             // Assuming you have a Cart model and 'cart_items' is an array of cart item IDs
-            $cartItems = $request->input('cart_items');
-            $totalAmount = $this->calculateTotalAmount($cartItems);
+            $cartItems = Cart::where('id_users','=',Auth::user()->id)->sum('amount');
+            $carts = Cart::where('id_users','=',Auth::user()->id)->get();
+            // $totalAmount = $this->calculateTotalAmount($cartItems);
 
             // Other checkout data...
             $checkoutData = [
                 'user_id' => auth()->id(),
                 'shipping_address' => $request->input('shipping_address'),
                 // tambahkan data lain sesuai kebutuhan
-                'total_amount' => $totalAmount,
+                'total_amount' => $cartItems,
             ];
 
+
+
             // Create a checkout record
-            Checkout::create($checkoutData);
+            $check = Checkout::create($checkoutData);
+            $uuid = Str::uuid()->toString();
+
 
             // Redirect to the success page with totalAmount
-            return redirect()->route('pages.checkout.success', ['totalAmount' => $totalAmount]);
+            return view('pages.checkout.succes',compact('cartItems','uuid','carts'));
+
         } catch (\Exception $e) {
             // Handle any exception that might occur
             return back()->withError('Error processing checkout: ' . $e->getMessage())->withInput();

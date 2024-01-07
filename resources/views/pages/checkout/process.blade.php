@@ -1,6 +1,4 @@
-<!-- resources/views/pages/checkout/process.blade.php -->
-
-@extends('layouts.app')
+@extends('pages.layout')
 
 @section('content')
     <div class="container">

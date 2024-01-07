@@ -46,9 +46,6 @@ Route::resource('clients', ClientController::class)->except(['index', 'create', 
 Route::get('clients/{client}/edit', [ClientController::class, 'edit'])->name('clients.edit');
 Route::put('clients/{client}', [ClientController::class, 'update'])->name('clients.update');
 
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
