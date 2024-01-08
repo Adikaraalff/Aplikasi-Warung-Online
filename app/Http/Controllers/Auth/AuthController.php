@@ -90,4 +90,9 @@ class AuthController extends Controller
 
         return redirect('login');
     }
+    // public function adminProfile()
+    // {
+    //     $Admin = User::where('id','=',Auth::user()->id)->first();
+    //     return view('profile.admin.profile', compact('Admin'));
+    // }
 }

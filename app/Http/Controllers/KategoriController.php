@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -115,11 +116,14 @@ class KategoriController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Kategori $Kategori)
+    public function destroy($id):JsonResponse
     {
+        $Kategori = Kategori::find($id);
         $Kategori->delete();
 
-        return redirect()->route('kategoris.index')
-            ->with('success', 'Kategori deleted successfully');
+        return response()->json([
+            'status' => 200,
+            'message' => 'success'
+        ]);
     }
 }

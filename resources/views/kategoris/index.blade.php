@@ -98,6 +98,37 @@
         });
     </script>
 
+    <script>
+        function deleteConfirm(url) {
+            var result = confirm("Are you sure you want to delete this item?");
+            if (result) {
+                var csrfToken = '{{ csrf_token() }}'; // Use Laravel's csrf_token() function
+
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                    },
+                    success: function(response) {
+                        if (response.status === 200) {
+                            console.log("Item deleted successfully.");
+                            location.reload(); // Reload the page after successful deletion
+                        } else {
+                            console.error("Failed to delete item. Status: " + response.status);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Failed to delete item. Status: " + xhr.status);
+                    }
+                });
+            } else {
+                console.log("Deletion canceled for item with url: " + url);
+            }
+        }
+    </script>
+
     <!--   Core JS Files   -->
     <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>

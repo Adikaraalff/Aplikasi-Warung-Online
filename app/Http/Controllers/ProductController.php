@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kategori;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -119,28 +120,31 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($id);
 
-        $product->update([
-            'nama_products' => $request->input('nama_products'),
-            'price' => $request->input('price'),
-            'keterangan' => $request->input('keterangan'),
-            'id_kategoris' => $request->input('id_kategoris'),
-        ]);
+        $product->nama_products = $request->input('nama_products');
+        $product->price = $request->input('price');
+        $product->keterangan = $request->input('keterangan');
+        $product->id_kategoris = $request->input('id_kategoris');
 
         if ($request->hasFile('file')) {
             $destinationPath = 'image/';
             $namaBaru = date('YmdHis') . "." . $request->file('file')->getClientOriginalExtension();
             $request->file('file')->move($destinationPath, $namaBaru);
-            $product->update(['file' => $namaBaru]);
+            $product->file = $namaBaru;
         }
+
+        $product->save();
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully');
     }
 
-    public function destroy(Product $product)
+    public function destroy($id): JsonResponse
     {
+        $product = Product::find($id);
         $product->delete();
 
-        return redirect()->route('products.index')
-            ->with('success', 'Product deleted successfully');
+        return response()->json([
+            'status' => 200,
+            'message' => 'success'
+        ]);
     }
 }

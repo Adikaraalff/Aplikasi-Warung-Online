@@ -148,7 +148,7 @@
                         </h6>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white " href="#">
+                        <a class="nav-link text-white " href="{{ route('admin.profile') }}">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10">person</i>
                             </div>
@@ -161,14 +161,6 @@
                                 <i class="material-icons opacity-10">login</i>
                             </div>
                             <span class="nav-link-text ms-1">Sign out</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white " href="#">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">notifications</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Notifications</span>
                         </a>
                     </li>
                 </ul>

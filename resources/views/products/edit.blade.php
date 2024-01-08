@@ -9,41 +9,40 @@
                         <div class="row">
                             <div class="col-lg-12 margin-tb">
                                 <div class="card-header pb-0">
-                                    <h4>Edit Uang Keluar</h4>
+                                    <h4>Edit Product</h4>
                                 </div>
                             </div>
                         </div>
                         <div class="container">
-                            <form method="POST" action="{{ route('products.update', $Product->id) }}"
-                                enctype="multipart/form-data"> <!-- Make sure to include enctype for file uploads -->
+                            <form method="POST" action="{{ route('products.update', $product->id) }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-
 
                                 <div class="form-group">
                                     <label for="nama_products">Nama Product:</label>
                                     <input type="text" class="form-control" id="nama_products" name="nama_products"
-                                        value="{{ $Product->nama_products }}" required>
+                                        value="{{ $product->nama_products }}" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="price">Price:</label>
                                     <input type="text" class="form-control" id="price" name="price"
-                                        value="{{ $Product->price }}" required>
+                                        value="{{ $product->price }}" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="nama">Keterangan:</label>
+                                    <label for="keterangan">Keterangan:</label>
                                     <input type="text" class="form-control" id="keterangan" name="keterangan"
-                                        value="{{ $Product->keterangan }}" required>
+                                        value="{{ $product->keterangan }}" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="Kategori">Kategori:</label>
-                                    <select class="form-control" id="Kategori" name="Kategori" required>
-                                        @foreach ($Kategori as $Ka)
+                                    <label for="kategori">Kategori:</label>
+                                    <select class="form-control" id="kategori" name="id_kategoris" required>
+                                        @foreach ($kategori as $Ka)
                                             <option value="{{ $Ka->id }}"
-                                                {{ $Ka->id == $Product->id_kategoris ? 'selected' : '' }}>
+                                                {{ $Ka->id == $product->id_kategoris ? 'selected' : '' }}>
                                                 {{ $Ka->nama }}
                                             </option>
                                         @endforeach
@@ -52,8 +51,9 @@
 
                                 <div class="form-group">
                                     <label for="file">Gambar:</label>
-                                    <input type="file" class="form-control" id="file" name="file">
-                                    <img src="{{ asset('image/' . $Product->file) }}" alt="Current Image" width="100">
+                                    <input type="file" class="form-control" id="file" name="file"
+                                        accept="image/*">
+                                    <img src="{{ asset('image/' . $product->file) }}" alt="Current Image" width="100">
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>

@@ -38,6 +38,8 @@ Route::get('register', [AuthController::class, 'registration'])->name('register'
 Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post');
 Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/admin/profile', [AuthController::class, 'adminProfile'])->name('admin.profile');
+
 
 // Client routes
 Route::get('/dashboard/client', [ClientController::class, 'clientDashboard'])->name('dashboard.client');
